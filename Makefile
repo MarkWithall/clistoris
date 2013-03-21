@@ -1,10 +1,16 @@
 CC=gcc
 CFLAGS=-fms-extensions -std=c99 -Wall -Wextra 
 #CFLAGS=-std=c11 -Wall -Wextra
-#RM=cmd /C del
-RM=rm -f
-#OUTPUT=polymorphic_lists.exe
-OUTPUT=polymorphic_lists
+
+ifdef COMSPEC
+	RM := cmd /C del
+	OUTPUT := polymorphic_lists.exe
+	TESTS := array_list_iterator_tests.exe
+else
+	RM := rm -f
+	OUTPUT := polymorphic_lists
+	TESTS := array_list_iterator_tests
+endif
 
 .PHONY: clean
 
@@ -22,9 +28,9 @@ array_list.o: array_list.c array_list.h interfaces.h list_data.o
 $(OUTPUT): polymorphic_lists.c array_list.o
 	$(CC) $(CFLAGS) -o $(OUTPUT) polymorphic_lists.c array_list.o list_data.o
 
-array_list_iterator_tests: array_list_iterator_tests.c array_list.o test.o
-	$(CC) $(CFLAGS) -o array_list_iterator_tests array_list_iterator_tests.c array_list.o list_data.o test.o
+$(TESTS): array_list_iterator_tests.c array_list.o test.o
+	$(CC) $(CFLAGS) -o $(TESTS) array_list_iterator_tests.c array_list.o list_data.o test.o
 
 clean:
-	$(RM) $(OUTPUT) *.o array_list_iterator_tests
+	$(RM) $(OUTPUT) $(TESTS) *.o
 
