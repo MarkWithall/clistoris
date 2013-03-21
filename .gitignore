@@ -1,8 +1,4 @@
-
 *.swp
-
 *.o
-
 array_list_iterator_tests
-
 polymorphic_lists
