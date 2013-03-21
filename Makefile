@@ -1,36 +1,43 @@
 CC=gcc
 CFLAGS=-fms-extensions -std=c99 -Wall -Wextra 
 #CFLAGS=-std=c11 -Wall -Wextra
+BIN=bin
+OBJ=obj
 
 ifdef COMSPEC
 	RM := cmd /C del
-	OUTPUT := polymorphic_lists.exe
-	TESTS := array_list_iterator_tests.exe
+	OUTPUT := $(BIN)\polymorphic_lists.exe
+	TESTS := $(BIN)\array_list_iterator_tests.exe
+	MKDIR := md
 else
 	RM := rm -f
-	OUTPUT := polymorphic_lists
-	TESTS := array_list_iterator_tests
+	OUTPUT := $(BIN)/polymorphic_lists
+	TESTS := $(BIN)/array_list_iterator_tests
+	MKDIR := mkdir -p
 endif
 
-.PHONY: clean
+.PHONY: clean create_build_dirs
 
-all: $(OUTPUT) array_list_iterator_tests
+all: create_build_dirs $(OUTPUT) $(TESTS)
 
-test.o: test.c test.h
-	$(CC) $(CFLAGS) -c test.c
+create_build_dirs:
+	$(MKDIR) $(BIN) $(OBJ)
 
-list_data.o: list_data.c list_data.h
-	$(CC) $(CFLAGS) -c list_data.c
+$(OBJ)/test.o: test.c test.h
+	$(CC) $(CFLAGS) -o $(OBJ)/test.o -c test.c
 
-array_list.o: array_list.c array_list.h interfaces.h list_data.o
-	$(CC) $(CFLAGS) -c array_list.c
+$(OBJ)/list_data.o: list_data.c list_data.h
+	$(CC) $(CFLAGS) -o $(OBJ)/list_data.o -c list_data.c
 
-$(OUTPUT): polymorphic_lists.c array_list.o
-	$(CC) $(CFLAGS) -o $(OUTPUT) polymorphic_lists.c array_list.o list_data.o
+$(OBJ)/array_list.o: array_list.c array_list.h interfaces.h $(OBJ)/list_data.o
+	$(CC) $(CFLAGS) -o $(OBJ)/array_list.o -c array_list.c
 
-$(TESTS): array_list_iterator_tests.c array_list.o test.o
-	$(CC) $(CFLAGS) -o $(TESTS) array_list_iterator_tests.c array_list.o list_data.o test.o
+$(OUTPUT): polymorphic_lists.c $(OBJ)/array_list.o
+	$(CC) $(CFLAGS) -o $(OUTPUT) polymorphic_lists.c $(OBJ)/array_list.o $(OBJ)/list_data.o
+
+$(TESTS): array_list_iterator_tests.c $(OBJ)/array_list.o $(OBJ)/test.o
+	$(CC) $(CFLAGS) -o $(TESTS) array_list_iterator_tests.c $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
 
 clean:
-	$(RM) $(OUTPUT) $(TESTS) *.o
+	$(RM) $(OUTPUT) $(TESTS) $(OBJ)/*.o
 
