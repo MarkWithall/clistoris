@@ -12,57 +12,57 @@
 
 union list_data item_for(int item)
 {
-	union list_data d;
-	d.as_int = item;
-	return d;
+    union list_data d;
+    d.as_int = item;
+    return d;
 }
 
 void print_list(struct iterator *l)
 {
-	while (l->move_next(l))
-		printf("%d ", l->get_current(l).as_int);
-	printf("\n");
+    while (l->move_next(l))
+        printf("%d ", l->get_current(l).as_int);
+    printf("\n");
 }
 
 int main(void)
 {
-	struct array_list *l = create_array_list(type_INT, 2);
+    struct array_list *l = create_array_list(type_INT, 2);
 
-	l->add(l, item_for(0));
-	l->add(l, item_for(1));
-	l->add(l, item_for(2));
-	l->add(l, item_for(3));
+    l->add(l, item_for(0));
+    l->add(l, item_for(1));
+    l->add(l, item_for(2));
+    l->add(l, item_for(3));
 
-	l->set_element_at(l, 2, item_for(42));
+    l->set_element_at(l, 2, item_for(42));
 
-	printf("Element at 2: %d\n", l->get_element_at(l, 2).as_int);
-	printf("Index of 42: %d\n", l->index_of(l, item_for(42)));
+    printf("Element at 2: %d\n", l->get_element_at(l, 2).as_int);
+    printf("Index of 42: %d\n", l->index_of(l, item_for(42)));
 
-	l->insert_at(l, 2, item_for(13));
+    l->insert_at(l, 2, item_for(13));
 
-	print_list((struct iterator *)l);
+    print_list((struct iterator *)l);
 
-	l->remove_at(l, 2);
+    l->remove_at(l, 2);
 
-	printf("Length: %d\n", l->get_count(l));
-	
-	if (l->contains(l, item_for(42)))
-		printf("Contains 42\n");
+    printf("Length: %d\n", l->get_count(l));
+    
+    if (l->contains(l, item_for(42)))
+        printf("Contains 42\n");
 
-	l->remove(l, item_for(42));
+    l->remove(l, item_for(42));
 
-	if (! l->contains(l, item_for(42)))
-		printf("Doesn't contain 42\n");
+    if (! l->contains(l, item_for(42)))
+        printf("Doesn't contain 42\n");
 
-	print_list((struct iterator *)l);
+    print_list((struct iterator *)l);
 
-	l->clear(l);
+    l->clear(l);
 
-	print_list((struct iterator *)l);
+    print_list((struct iterator *)l);
 
-	printf("Length: %d\n", l->get_count(l));
+    printf("Length: %d\n", l->get_count(l));
 
-	destroy_array_list(l);
+    destroy_array_list(l);
 
-	exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
