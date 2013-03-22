@@ -4,19 +4,22 @@ CFLAGS=-fms-extensions -std=c99 -Wall -Wextra
 BIN=bin
 OBJ=obj
 
-ifdef COMSPEC
+ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
 	OUTPUT := $(BIN)\polymorphic_lists.exe
 	TESTS := $(BIN)\array_list_iterator_tests.exe
-	MKDIR := md
+	MKDIR := cmd /C md
+	OBJECTS := $(OBJ)\*.o
 else
 	RM := rm -f
 	OUTPUT := $(BIN)/polymorphic_lists
 	TESTS := $(BIN)/array_list_iterator_tests
 	MKDIR := mkdir -p
+	OBJECTS := $(OBJ)/*.o
 endif
 
 .PHONY: clean create_build_dirs
+.IGNORE: create_build_dirs
 
 all: create_build_dirs $(OUTPUT) $(TESTS)
 
@@ -39,5 +42,5 @@ $(TESTS): array_list_iterator_tests.c $(OBJ)/array_list.o $(OBJ)/test.o
 	$(CC) $(CFLAGS) -o $(TESTS) array_list_iterator_tests.c $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
 
 clean:
-	$(RM) $(OUTPUT) $(TESTS) $(OBJ)/*.o
+	$(RM) $(OUTPUT) $(TESTS) $(OBJECTS)
 
