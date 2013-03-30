@@ -30,19 +30,19 @@ create_build_dirs:
 	$(MKDIR) $(BIN) $(OBJ)
 
 $(OBJ)/test.o: test.c test.h
-	$(CC) $(CFLAGS) -o $@ -c test.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/list_data.o: list_data.c list_data.h
-	$(CC) $(CFLAGS) -o $@ -c list_data.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/array_list.o: array_list.c array_list.h interfaces.h $(OBJ)/list_data.o
-	$(CC) $(CFLAGS) -o $@ -c array_list.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/array_list_iterator_tests.o: array_list_iterator_tests.c $(OBJ)/test.o $(OBJ)/array_list.o
-	$(CC) $(CFLAGS) -o $@ -c array_list_iterator_tests.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OUTPUT): polymorphic_lists.c $(OBJ)/array_list.o
-	$(CC) $(CFLAGS) -o $@ polymorphic_lists.c $(OBJ)/array_list.o $(OBJ)/list_data.o
+	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list.o $(OBJ)/list_data.o
 
 $(TESTS): $(OBJ)/array_list_iterator_tests.o
 	$(PERL) test_generator.pl array_list_iterator_tests.c >array_list_iterator_tests_runner.c
