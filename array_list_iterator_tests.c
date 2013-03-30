@@ -1,7 +1,5 @@
 #include "test.h"
 
-#include <stdlib.h>
-
 #include "array_list.h"
 
 struct array_list *l;
@@ -66,19 +64,4 @@ TEST(reset_returns_to_beginning)
     if (i != 10)
         return "Current value expected 10";
 END_TEST
-
-int main(void)
-{
-    test_fixture("array_list iterator tests");
-
-    run_test(first_move_next_moves_to_first_item);
-    run_test(first_move_next_returns_true);
-    run_test(second_move_next_returns_false);
-    run_test(second_move_next_resets);
-    run_test(reset_returns_to_beginning);
-
-    display_results();
-
-    exit(EXIT_SUCCESS);
-}
 
