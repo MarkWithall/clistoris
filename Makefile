@@ -44,11 +44,12 @@ $(OBJ)/array_list_iterator_tests.o: array_list_iterator_tests.c $(OBJ)/test.o $(
 $(OUTPUT): polymorphic_lists.c $(OBJ)/array_list.o
 	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list.o $(OBJ)/list_data.o
 
-$(TESTS): $(OBJ)/array_list_iterator_tests.o
+array_list_iterator_tests_runner.c: array_list_iterator_tests.c
 	$(PERL) test_generator.pl array_list_iterator_tests.c >array_list_iterator_tests_runner.c
-	$(CC) $(CFLAGS) -o $@ array_list_iterator_tests_runner.c $(OBJ)/array_list_iterator_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
-	$(RM) array_list_iterator_tests_runner.c
+
+$(TESTS): array_list_iterator_tests_runner.c $(OBJ)/array_list_iterator_tests.o
+	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list_iterator_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
 
 clean:
-	$(RM) $(BINARIES) $(OBJECTS)
+	$(RM) $(BINARIES) $(OBJECTS) *_runner.c
 
