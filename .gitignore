@@ -1,3 +1,4 @@
 *.swp
+*_runner.c
 bin/
 obj/
