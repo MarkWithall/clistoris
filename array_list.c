@@ -71,19 +71,18 @@ int contains(void *self, union list_data item)
     return 0;
 }
 
-int remove(void *self, union list_data item)
+int remove_item(void *self, union list_data item)
 {
     struct array_list *l = array_list_from(self);
     int i, removed = 0;
-    if (! l->contains(l, item))
-        return 0;
     for (i = 0; i < l->count; ++i)
         if (removed)
             l->items[i-1] = l->items[i];
         else if (are_equal(l->items[i], item, l->data_type))
             removed = 1;
-    --(l->count);
-    return 1;
+    if (removed)
+        --(l->count);
+    return removed;
 }
 
 /*
@@ -155,7 +154,7 @@ struct array_list *create_array_list(enum list_data_type data_type, int initial_
     l->add = &add;
     l->clear = &clear;
     l->contains = &contains;
-    l->remove = &remove;
+    l->remove = &remove_item;
 
     /* list */
     l->get_element_at = &get_element_at;
