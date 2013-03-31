@@ -22,7 +22,7 @@ endif
 .PHONY: clean create_build_dirs
 .IGNORE: create_build_dirs
 
-all: create_build_dirs $(BIN)/polymorphic_lists$(DOTEXE) $(BIN)/array_list_iterator_tests$(DOTEXE) $(BIN)/array_list_collection_tests$(DOTEXE) $(BIN)/array_list_list_tests$(DOTEXE)
+all: create_build_dirs $(BIN)/array_list_iterator_tests$(DOTEXE) $(BIN)/array_list_collection_tests$(DOTEXE) $(BIN)/array_list_list_tests$(DOTEXE)
 
 create_build_dirs:
 	$(MKDIR) $(BIN) $(OBJ)
@@ -44,9 +44,6 @@ $(OBJ)/array_list_collection_tests.o: array_list_collection_tests.c $(OBJ)/test.
 
 $(OBJ)/array_list_list_tests.o: array_list_list_tests.c $(OBJ)/test.o $(OBJ)/array_list.o
 	$(CC) $(CFLAGS) -o $@ -c $<
-
-$(BIN)/polymorphic_lists$(DOTEXE): polymorphic_lists.c $(OBJ)/array_list.o
-	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list.o $(OBJ)/list_data.o
 
 array_list_iterator_tests_runner.c: array_list_iterator_tests.c
 	$(PERL) test_generator.pl $< > $@
