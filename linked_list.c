@@ -70,7 +70,7 @@ void clear(void *self)
     {
         temp = item;
         item = item->next;
-        free(item);
+        free(temp);
     }
     l->count = 0;
     l->first = NULL;
