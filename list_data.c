@@ -22,3 +22,4 @@ int are_equal(union list_data d1, union list_data d2, enum list_data_type data_t
         return memcmp(&d1, &d2, sizeof(union list_data)) == 0;
     }
 }
+

@@ -17,3 +17,4 @@ struct array_list *create_array_list(enum list_data_type, int);
 void destroy_array_list(struct array_list *);
 
 #endif /* _ARRAY_LIST_H */
+

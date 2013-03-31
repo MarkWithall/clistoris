@@ -48,3 +48,4 @@ union list_data empty_item();
 int are_equal(union list_data d1, union list_data d2, enum list_data_type data_type);
 
 #endif /* _LIST_DATA_H */
+
