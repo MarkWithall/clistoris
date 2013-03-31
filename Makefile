@@ -20,7 +20,7 @@ endif
 .PHONY: clean create_build_dirs
 .IGNORE: create_build_dirs
 
-all: create_build_dirs $(BIN)/polymorphic_lists $(BIN)/array_list_iterator_tests $(BIN)/array_list_collection_tests
+all: create_build_dirs $(BIN)/polymorphic_lists $(BIN)/array_list_iterator_tests $(BIN)/array_list_collection_tests $(BIN)/array_list_list_tests
 
 create_build_dirs:
 	$(MKDIR) $(BIN) $(OBJ)
@@ -40,20 +40,29 @@ $(OBJ)/array_list_iterator_tests.o: array_list_iterator_tests.c $(OBJ)/test.o $(
 $(OBJ)/array_list_collection_tests.o: array_list_collection_tests.c $(OBJ)/test.o $(OBJ)/array_list.o
 	$(CC) $(CFLAGS) -o $@ -c $<
 
+$(OBJ)/array_list_list_tests.o: array_list_list_tests.c $(OBJ)/test.o $(OBJ)/array_list.o
+	$(CC) $(CFLAGS) -o $@ -c $<
+
 $(BIN)/polymorphic_lists: polymorphic_lists.c $(OBJ)/array_list.o
 	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list.o $(OBJ)/list_data.o
 
 array_list_iterator_tests_runner.c: array_list_iterator_tests.c
-	$(PERL) test_generator.pl array_list_iterator_tests.c >array_list_iterator_tests_runner.c
+	$(PERL) test_generator.pl $< > $@
 
 array_list_collection_tests_runner.c: array_list_collection_tests.c
-	$(PERL) test_generator.pl array_list_collection_tests.c >array_list_collection_tests_runner.c
+	$(PERL) test_generator.pl $< > $@
+
+array_list_list_tests_runner.c: array_list_list_tests.c
+	$(PERL) test_generator.pl $< > $@
 
 $(BIN)/array_list_iterator_tests: array_list_iterator_tests_runner.c $(OBJ)/array_list_iterator_tests.o
 	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list_iterator_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
 
 $(BIN)/array_list_collection_tests: array_list_collection_tests_runner.c $(OBJ)/array_list_collection_tests.o
 	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list_collection_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
+
+$(BIN)/array_list_list_tests: array_list_list_tests_runner.c $(OBJ)/array_list_list_tests.o
+	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list_list_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
 
 clean:
 	$(RM) $(BINARIES) $(OBJECTS) *_runner.c
