@@ -13,6 +13,33 @@
         return NULL; \
     }
 
+#define ASSERT_EQUAL(a, b, msg) \
+    if (a != b) { \
+        snprintf(error_message, ERROR_LENGTH, msg, a, b); \
+        return error_message; \
+    }
+
+#define ASSERT_NOT_EQUAL(a, b, msg) \
+    if (a == b) { \
+        snprintf(error_message, ERROR_LENGTH, msg, a, b); \
+        return error_message; \
+    }
+
+#define ASSERT_TRUE(a, msg) \
+    if (!(a)) { \
+        snprintf(error_message, ERROR_LENGTH, msg, a); \
+        return error_message; \
+    }
+
+#define ASSERT_FALSE(a, msg) \
+    if (a) { \
+        snprintf(error_message, ERROR_LENGTH, msg, a); \
+        return error_message; \
+    }
+
+#define ERROR_LENGTH 128
+char error_message[ERROR_LENGTH];
+
 struct test_results
 {
     int passes;

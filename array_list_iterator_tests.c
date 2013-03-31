@@ -28,19 +28,19 @@ TEST(first_move_next_moves_to_first_item)
 
     l->move_next(l);
     i = l->get_current(l).as_int;
-    if (i != 10)
-        return "Current value expected 10";
+    ASSERT_EQUAL(i, 10, "Actual %d, expected %d");
 END_TEST
 
 TEST(first_move_next_returns_true)
-    if (l->move_next(l) == 0)
-        return "Expected true but was false";
+    int result = l->move_next(l);
+    ASSERT_TRUE(result, "Expected 1 but was %d");
 END_TEST
 
 TEST(second_move_next_returns_false)
+    int result;
     l->move_next(l);
-    if (l->move_next(l) != 0)
-        return "Expected false but was true";
+    result = l->move_next(l);
+    ASSERT_FALSE(result, "Expected 0 but was %d");
 END_TEST
 
 TEST(second_move_next_resets)
@@ -50,8 +50,7 @@ TEST(second_move_next_resets)
     l->move_next(l); /* moves to end and resets */
     l->move_next(l); /* moves to 10 */
     i = l->get_current(l).as_int;
-    if (i != 10)
-        return "Current value expected 10";
+    ASSERT_EQUAL(i, 10, "Actual %d, expected %d");
 END_TEST
 
 TEST(reset_returns_to_beginning)
@@ -61,7 +60,6 @@ TEST(reset_returns_to_beginning)
     l->reset(l);
     l->move_next(l); /* moves to 10 */
     i = l->get_current(l).as_int;
-    if (i != 10)
-        return "Current value expected 10";
+    ASSERT_EQUAL(i, 10, "Actual %d, expected %d");
 END_TEST
 
