@@ -63,6 +63,11 @@ $(BIN)/array_list_collection_tests$(DOTEXE): array_list_collection_tests_runner.
 $(BIN)/array_list_list_tests$(DOTEXE): array_list_list_tests_runner.c $(OBJ)/array_list_list_tests.o
 	$(CC) $(CFLAGS) -o $@ $< $(OBJ)/array_list_list_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
 
+test:
+	$(BIN)/array_list_iterator_tests
+	$(BIN)/array_list_collection_tests
+	$(BIN)/array_list_list_tests
+
 clean:
 	$(RM) $(BINARIES) $(OBJECTS) *_runner.c
 

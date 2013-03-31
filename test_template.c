@@ -6,7 +6,7 @@
 int
 main(void)
 {
-    test_fixture("array_list iterator tests");
+    test_fixture("[% fixture %]");
 
 [% FOREACH test IN tests %]    run_test([% test %]);
 [% END %]
