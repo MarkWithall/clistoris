@@ -172,3 +172,4 @@ void destroy_array_list(struct array_list *l)
     free(l->items);
     free(l);
 }
+
