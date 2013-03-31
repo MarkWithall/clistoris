@@ -25,7 +25,6 @@ int move_next(void *self)
         return 1;
     l->reset(l);
     return 0;
-
 }
 
 void reset(void *self)
