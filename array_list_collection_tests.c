@@ -23,47 +23,51 @@ teardown()
 }
 
 TEST(count_for_empty_list_is_zero)
-    if (l->get_count(l) != 0)
-        return "Expected count is zero";
+    int count = l->get_count(l);
+    ASSERT_EQUAL(count, 0, "Actual %d, expected %d");
 END_TEST
 
 TEST(adding_some_elements_increase_count)
+    int count;
     l->add(l, data_for(10));
     l->add(l, data_for(20));
     l->add(l, data_for(30));
-    if (l->get_count(l) != 3)
-        return "Expected count is 3";
+    count = l->get_count(l);
+    ASSERT_EQUAL(count, 3, "Actual %d, expected %d");
 END_TEST
 
 TEST(clear_resets_count_to_zero)
+    int count;
     l->add(l, data_for(10));
     l->add(l, data_for(20));
     l->add(l, data_for(30));
     l->clear(l);
-    if (l->get_count(l) != 0)
-        return "Expected count is zero";
+    count = l->get_count(l);
+    ASSERT_EQUAL(count, 0, "Actual %d, expected %d");
 END_TEST
 
 TEST(contains_non_existant_element_returns_false)
-    if (l->contains(l, data_for(10)))
-        return "Expected list to not contain 10";
+    int result = l->contains(l, data_for(10));
+    ASSERT_FALSE(result, "Expected 0, actual %d");
 END_TEST
 
 TEST(contains_existing_element_returns_true)
+    int result;
     l->add(l, data_for(10));
-    if (! l->contains(l, data_for(10)))
-        return "Expected list to contain 10";
+    result = l->contains(l, data_for(10));
+    ASSERT_TRUE(result, "Expected 1, actual %d");
 END_TEST
 
 TEST(removing_element_removes_element)
+    int result;
     l->add(l, data_for(10));
     l->remove(l, data_for(10));
-    if (l->contains(l, data_for(10)))
-        return "Expected list to not contain 10";
+    result = l->contains(l, data_for(10));
+    ASSERT_FALSE(result, "Expected 0, actual %d");
 END_TEST
 
 TEST(removing_non_existant_element_returns_false)
-    if (l->remove(l, data_for(10)))
-        return "Expected false when removing non-existant element";
+    int result = l->remove(l, data_for(10));
+    ASSERT_FALSE(result, "Expected 0, actual %d");
 END_TEST
 
