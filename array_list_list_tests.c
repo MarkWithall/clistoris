@@ -26,69 +26,68 @@ teardown()
 }
 
 TEST(get_element_at_returns_expected)
-    union list_data item = l->get_element_at(l, 1);
-    if (item.as_int != 20)
-        return "Expected item at index 1 to be 20";
+    int item = l->get_element_at(l, 1).as_int;
+    ASSERT_EQUAL(item, 20, "Actual %d, expected %d");
 END_TEST
 
 TEST(set_element_at_sets_element)
-    union list_data item;
+    int item;
     l->set_element_at(l, 1, data_for(15));
-    item = l->get_element_at(l, 1);
-    if (item.as_int != 15)
-        return "Expected item at index 1 to be 15";
+    item = l->get_element_at(l, 1).as_int;
+    ASSERT_EQUAL(item, 15, "Actual %d, expected %d");
 END_TEST
 
 TEST(set_element_does_not_change_count)
+    int count;
     l->set_element_at(l, 1, data_for(15));
-    if (l->get_count(l) != 3)
-        return "Expected list count of 3";
+    count = l->get_count(l);
+    ASSERT_EQUAL(count, 3, "Actual %d, expected %d");
 END_TEST
 
 TEST(index_of_returns_correct_index)
-    if (l->index_of(l, data_for(20)) != 1)
-        return "Expected index of 20 is 1";
+    int index = l->index_of(l, data_for(20));
+    ASSERT_EQUAL(index, 1, "Actual %d, expected %d");
 END_TEST
 
 TEST(insert_at_inserts_item)
-    union list_data item;
+    int item;
     l->insert_at(l, 1, data_for(15));
-    item = l->get_element_at(l, 1);
-    if (item.as_int != 15)
-        return "Expected item at index 1 to be 15";
+    item = l->get_element_at(l, 1).as_int;
+    ASSERT_EQUAL(item, 15, "Actual %d, expected %d");
 END_TEST
 
 TEST(insert_at_moves_previous_item_along)
-    union list_data item;
+    int item;
     l->insert_at(l, 1, data_for(15));
-    item = l->get_element_at(l, 2);
-    if (item.as_int != 20)
-        return "Expected item at index 2 to be 20";
+    item = l->get_element_at(l, 2).as_int;
+    ASSERT_EQUAL(item, 20, "Actual %d, expected %d");
 END_TEST
 
 TEST(insert_at_increase_count)
+    int count;
     l->insert_at(l, 1, data_for(15));
-    if (l->get_count(l) != 4)
-        return "Expected count of 4";
+    count = l->get_count(l);
+    ASSERT_EQUAL(count, 4, "Actual %d, expected %d");
 END_TEST
 
 TEST(remove_at_removes_item)
+    int result;
     l->remove_at(l, 1);
-    if (l->contains(l, data_for(20)))
-        return "Expected list to not contain 20";
+    result = l->contains(l, data_for(20));
+    ASSERT_FALSE(result, "Expected 0, actual %d");
 END_TEST
 
 TEST(remove_at_moved_next_item_back)
-    union list_data item;
+    int item;
     l->remove_at(l, 1);
-    item = l->get_element_at(l, 1);
-    if (item.as_int != 30)
-        return "Expected item at index 1 to be 30";
+    item = l->get_element_at(l, 1).as_int;
+    ASSERT_EQUAL(item, 30, "Actual %d, expected %d");
 END_TEST
 
 TEST(remove_at_decreased_count)
+    int count;
     l->remove_at(l, 1);
-    if (l->get_count(l) != 2)
-        return "Expected count of 2";
+    count = l->get_count(l);
+    ASSERT_EQUAL(count, 2, "Actual %d, expected %d");
 END_TEST
 
