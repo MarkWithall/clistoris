@@ -19,7 +19,7 @@ else
 	DOTEXE := 
 endif
 
-.PHONY: clean create_build_dirs
+.PHONY: test clean create_build_dirs
 .IGNORE: create_build_dirs
 
 all: create_build_dirs $(BIN)/array_list_iterator_tests$(DOTEXE) $(BIN)/array_list_collection_tests$(DOTEXE) $(BIN)/array_list_list_tests$(DOTEXE)
