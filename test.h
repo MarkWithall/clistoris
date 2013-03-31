@@ -19,12 +19,6 @@
         return error_message; \
     }
 
-#define ASSERT_NOT_EQUAL(a, b, msg) \
-    if (a == b) { \
-        snprintf(error_message, ERROR_LENGTH, msg, a, b); \
-        return error_message; \
-    }
-
 #define ASSERT_TRUE(a, msg) \
     if (!(a)) { \
         snprintf(error_message, ERROR_LENGTH, msg, a); \
