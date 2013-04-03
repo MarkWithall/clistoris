@@ -30,9 +30,9 @@ union list_data
 {
     void *as_void_ptr;
     char *as_char_ptr;
-    char *as_char;
-    short *as_short;
-    unsigned short *as_unsigned_short;
+    char as_char;
+    short as_short;
+    unsigned short as_unsigned_short;
     int as_int;
     unsigned int as_unsigned_int;
     long as_long;
