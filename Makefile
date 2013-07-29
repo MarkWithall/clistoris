@@ -3,16 +3,15 @@ CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror
 #CFLAGS=-std=c11 -Wall -Wextra -Werror
 BIN=bin
 OBJ=obj
+PERL=perl
 
 ifeq ($(OS),Windows_NT)
-	PERL="C:/Strawberry/perl/bin/perl"
 	RM := cmd /C del
 	MKDIR := cmd /C md
 	OBJECTS := $(OBJ)\*.o
 	BINARIES := $(BIN)\*.exe
 	DOTEXE := .exe
 else
-	PERL=perl
 	RM := rm -f
 	MKDIR := mkdir -p
 	OBJECTS := $(OBJ)/*.o
