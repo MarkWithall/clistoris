@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror
+CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
 #CFLAGS=-std=c11 -Wall -Wextra -Werror
 BIN=bin
 OBJ=obj
