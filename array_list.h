@@ -1,5 +1,5 @@
-#ifndef _ARRAY_LIST_H
-#define _ARRAY_LIST_H
+#ifndef ARRAY_LIST_H
+#define ARRAY_LIST_H
 
 #include "interfaces.h"
 
@@ -16,5 +16,5 @@ struct array_list
 struct array_list *create_array_list(enum list_data_type, int);
 void destroy_array_list(struct array_list *);
 
-#endif /* _ARRAY_LIST_H */
+#endif /* ARRAY_LIST_H */
 

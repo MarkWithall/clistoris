@@ -1,5 +1,5 @@
-#ifndef _INTERFACES_H
-#define _INTERFACES_H
+#ifndef INTERFACES_H
+#define INTERFACES_H
 
 #include "list_data.h"
 
@@ -30,5 +30,5 @@ struct list
     void (*remove_at)(void *self, int index);
 };
 
-#endif /* _INTERFACES_H */
+#endif /* INTERFACES_H */
 

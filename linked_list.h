@@ -1,5 +1,5 @@
-#ifndef _LINKED_LIST_H
-#define _LINKED_LIST_H
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 #include "interfaces.h"
 
@@ -22,5 +22,5 @@ struct linked_list
 struct linked_list *create_linked_list(enum list_data_type);
 void destroy_linked_list(struct linked_list *);
 
-#endif /* _LINKED_LIST_H */
+#endif /* LINKED_LIST_H */
 

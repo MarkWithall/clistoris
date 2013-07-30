@@ -1,5 +1,5 @@
-#ifndef _TEST_H
-#define _TEST_H
+#ifndef TEST_H
+#define TEST_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,5 +47,5 @@ void test_fixture(const char *);
 void run_test(const char *(*test)(void));
 void display_results(void);
 
-#endif /* _TEST_H */
+#endif /* TEST_H */
 
