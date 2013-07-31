@@ -6,8 +6,7 @@
 
 #define TEST(test_name) \
     const char *test_name(void) \
-    { \
-        printf("%s...", #test_name);
+    {
 
 #define END_TEST \
         return NULL; \
@@ -34,18 +33,11 @@
 #define ERROR_LENGTH 128
 char error_message[ERROR_LENGTH];
 
-struct test_results
-{
-    int passes;
-    int failures;
-};
-
 void setup(void);
 void teardown(void);
 
-void test_fixture(const char *);
-void run_test(const char *(*test)(void));
-void display_results(void);
+void test_fixture(int number_of_tests);
+void run_test(const char *, int, const char *(*test)(void));
 
 #endif /* TEST_H */
 

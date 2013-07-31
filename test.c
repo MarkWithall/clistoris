@@ -1,38 +1,28 @@
 #include "test.h"
 
-struct test_results m_results;
-
 void
-test_fixture(const char *fixture_name)
+test_fixture(const int number_of_tests)
 {
-    printf("===\nFixture: %s\n--\n", fixture_name);
-    m_results.passes = 0;
-    m_results.failures = 0;
+    printf("TAP version 13\n");
+    printf("1..%d\n", number_of_tests);
 }
 
 void
-run_test(const char *(*test)(void))
+run_test(const char *test_name, int test_number, const char *(*test)(void))
 {
     const char *test_result;
 
     setup();
     test_result = (*test)();
     if (test_result == NULL) {
-        printf("PASS\n");
-        ++m_results.passes;
+        printf("ok %d - %s\n", test_number, test_name);
     }
     else {
-        printf("FAIL (%s)\n", test_result);
-        ++m_results.failures;
+        printf("not ok %d - %s\n", test_number, test_name);
+        printf("  ---\n");
+        printf("  message: '%s'\n", test_result);
+        printf("  severity: fail\n");
+        printf("  ...\n");
     }
     teardown();
 }
-
-void
-display_results(void)
-{
-    int total = m_results.passes + m_results.failures;
-    float percentage = (total > 0) ? (100.0 * m_results.passes)/total : 0.0;
-    printf("--\nResults: %d/%d passed (%0.2f%%)\n===\n\n", m_results.passes, total, percentage);
-}
-

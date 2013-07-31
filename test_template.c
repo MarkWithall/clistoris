@@ -1,16 +1,15 @@
 #include <stdlib.h>
 #include "test.h"
 
-[% FOREACH test IN tests %]const char *[% test %]();
+[% FOREACH test IN tests %]const char *[% test.name %]();
 [% END %]
 int
 main(void)
 {
-    test_fixture("[% fixture %]");
+    test_fixture([% number_of_tests %]);
 
-[% FOREACH test IN tests %]    run_test([% test %]);
+[% FOREACH test IN tests %]    run_test("[% test.name %]", [% test.number %], [% test.name %]);
 [% END %]
-    display_results();
 
     exit(EXIT_SUCCESS);
 }

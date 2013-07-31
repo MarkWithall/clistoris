@@ -100,12 +100,7 @@ $(BIN)/linked_list_list_tests$(DOTEXE): linked_list_list_tests_runner.c $(OBJ)/l
 	$(CC) $(CFLAGS) -o $@ $^
 
 test:
-	$(BIN)/array_list_iterator_tests
-	$(BIN)/array_list_collection_tests
-	$(BIN)/array_list_list_tests
-	$(BIN)/linked_list_iterator_tests
-	$(BIN)/linked_list_collection_tests
-	$(BIN)/linked_list_list_tests
+	prove -f -e "" $(BIN)/*$(DOTEXE)
 
 clean:
 	$(RM) $(BINARIES) $(OBJECTS) *_runner.c
