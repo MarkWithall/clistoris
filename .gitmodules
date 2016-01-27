@@ -1,0 +1,3 @@
+[submodule "TESTickle"]
+	path = TESTickle
+	url = https://github.com/MarkWithall/TESTickle.git
