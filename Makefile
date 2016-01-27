@@ -1,3 +1,5 @@
+include TESTickle/TESTickle/TESTickle.mk
+
 CC=gcc
 CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
 #CFLAGS=-std=c11 -Wall -Wextra -Werror
@@ -5,16 +7,18 @@ BIN=bin
 OBJ=obj
 PERL=perl
 
+CFLAGS += -I TESTickle/TESTickle
+
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
 	MKDIR := cmd /C md
-	OBJECTS := $(OBJ)\*.o
+	OBJECTS := $(OBJ)\*.o *.o
 	BINARIES := $(BIN)\*.exe
 	DOTEXE := .exe
 else
 	RM := rm -f
 	MKDIR := mkdir -p
-	OBJECTS := $(OBJ)/*.o
+	OBJECTS := $(OBJ)/*.o *.o
 	BINARIES := $(BIN)/*
 	DOTEXE := 
 endif
@@ -23,7 +27,7 @@ endif
 .IGNORE: create_build_dirs
 
 all: create_build_dirs \
-	$(BIN)/array_list_iterator_tests$(DOTEXE) \
+	$(BIN)/array_list_iterator.test$(DOTEXE) \
 	$(BIN)/array_list_collection_tests$(DOTEXE) \
 	$(BIN)/array_list_list_tests$(DOTEXE) \
 	$(BIN)/linked_list_iterator_tests$(DOTEXE) \
@@ -63,9 +67,6 @@ $(OBJ)/linked_list_collection_tests.o: linked_list_collection_tests.c $(OBJ)/tes
 $(OBJ)/linked_list_list_tests.o: linked_list_list_tests.c $(OBJ)/test.o $(OBJ)/linked_list.o
 	$(CC) $(CFLAGS) -o $@ -c linked_list_list_tests.c
 
-array_list_iterator_tests_runner.c: array_list_iterator_tests.c
-	$(PERL) test_generator.pl $< > $@
-
 array_list_collection_tests_runner.c: array_list_collection_tests.c
 	$(PERL) test_generator.pl $< > $@
 
@@ -81,7 +82,7 @@ linked_list_collection_tests_runner.c: linked_list_collection_tests.c
 linked_list_list_tests_runner.c: linked_list_list_tests.c
 	$(PERL) test_generator.pl $< > $@
 
-$(BIN)/array_list_iterator_tests$(DOTEXE): array_list_iterator_tests_runner.c $(OBJ)/array_list_iterator_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
+$(BIN)/array_list_iterator.test$(DOTEXE): $(call test_files_for,array_list_iterator.test.c) $(OBJ)/array_list.o $(OBJ)/list_data.o
 	$(CC) $(CFLAGS) -o $@ $^ 
 
 $(BIN)/array_list_collection_tests$(DOTEXE): array_list_collection_tests_runner.c $(OBJ)/array_list_collection_tests.o $(OBJ)/array_list.o $(OBJ)/list_data.o $(OBJ)/test.o
@@ -103,5 +104,5 @@ test:
 	prove -f -e "" $(BIN)/*$(DOTEXE)
 
 clean:
-	$(RM) $(BINARIES) $(OBJECTS) *_runner.c
+	$(RM) $(BINARIES) $(OBJECTS) *_runner.c *.test.runner.c
 
