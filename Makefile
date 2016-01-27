@@ -12,8 +12,8 @@ CFLAGS += -I TESTickle/TESTickle
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
 	MKDIR := cmd /C md
-	OBJECTS := $(OBJ)\*.o *.o
-	BINARIES := $(BIN)\*.exe
+	OBJECTS := $(OBJ)\\*.o *.o
+	BINARIES := $(BIN)\\*.exe
 	DOTEXE := .exe
 else
 	RM := rm -f
