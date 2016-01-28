@@ -1,5 +1,7 @@
 *.swp
 *_runner.c
+*.test.runner.c
+*.o
 bin/
 obj/
 nbproject/

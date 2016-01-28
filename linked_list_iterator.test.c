@@ -1,8 +1,8 @@
-#include "test.h"
+#include "TESTickle.h"
 
-#include "array_list.h"
+#include "linked_list.h"
 
-struct array_list *l;
+struct linked_list *l;
 
 union list_data data_for(int i)
 {
@@ -13,14 +13,14 @@ union list_data data_for(int i)
 void
 setup()
 {
-    l = create_array_list(type_INT, 2);
+    l = create_linked_list(type_INT);
     l->add(l, data_for(10)); 
 }
 
 void
 teardown()
 {
-    destroy_array_list(l);
+    destroy_linked_list(l);
 }
 
 TEST(first_move_next_moves_to_first_item)
@@ -28,19 +28,19 @@ TEST(first_move_next_moves_to_first_item)
 
     l->move_next(l);
     i = l->get_current(l).as_int;
-    ASSERT_EQUAL(i, 10, "Actual %d, expected %d");
+    ASSERT_EQUAL(i, 10, "%d", "");
 END_TEST
 
 TEST(first_move_next_returns_true)
-    int result = l->move_next(l);
-    ASSERT_TRUE(result, "Expected 1 but was %d");
+    int r = l->move_next(l);
+    ASSERT_TRUE(r, "Expected 1");
 END_TEST
 
 TEST(second_move_next_returns_false)
-    int result;
+    int r;
     l->move_next(l);
-    result = l->move_next(l);
-    ASSERT_FALSE(result, "Expected 0 but was %d");
+    r = l->move_next(l);
+    ASSERT_FALSE(r, "Expected 0");
 END_TEST
 
 TEST(second_move_next_resets)
@@ -50,7 +50,7 @@ TEST(second_move_next_resets)
     l->move_next(l); /* moves to end and resets */
     l->move_next(l); /* moves to 10 */
     i = l->get_current(l).as_int;
-    ASSERT_EQUAL(i, 10, "Actual %d, expected %d");
+    ASSERT_EQUAL(i, 10, "%d", "");
 END_TEST
 
 TEST(reset_returns_to_beginning)
@@ -60,6 +60,6 @@ TEST(reset_returns_to_beginning)
     l->reset(l);
     l->move_next(l); /* moves to 10 */
     i = l->get_current(l).as_int;
-    ASSERT_EQUAL(i, 10, "Actual %d, expected %d");
+    ASSERT_EQUAL(i, 10, "%d", "");
 END_TEST
 
