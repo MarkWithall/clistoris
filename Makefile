@@ -1,4 +1,4 @@
-include TESTickle/TESTickle/TESTickle.mk
+include TESTickle/TESTickle.mk
 
 CC=gcc
 CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
@@ -7,7 +7,7 @@ BIN=bin
 OBJ=obj
 PERL=perl
 
-CFLAGS += -I TESTickle/TESTickle
+CFLAGS += -I TESTickle
 
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
