@@ -1,7 +1,7 @@
 include TESTickle/TESTickle.mk
 
 CC=gcc
-CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
+CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g -Wno-microsoft
 #CFLAGS=-std=c11 -Wall -Wextra -Werror
 BIN=bin
 OBJ=obj
