@@ -6,7 +6,8 @@ struct linked_list *l;
 
 union list_data data_for(int i)
 {
-    union list_data d = {.as_int = i};
+    union list_data d = (union list_data)0;
+    d.as_int = i;
     return d;
 }
 
