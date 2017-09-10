@@ -1,7 +1,11 @@
 language: c
 compiler: gcc
+sudo: false
+cache:
+    directories:
+        - perl_modules
 before_install:
     - export PERL_MM_USE_DEFAULT=1
-    - export PERL5LIB=/home/travis/perl5/lib/perl5
+    - cpanm --local-lib=~/perl_modules local::lib && eval $(perl -I ~/perl_modules -Mlocal::lib=~/perl_modules)
 install: cpan -f -i Template
 script: make && make test
