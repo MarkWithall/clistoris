@@ -63,8 +63,7 @@ void clear(void *self)
 int contains(void *self, union list_data item)
 {
     struct array_list *l = array_list_from(self);
-    int i;
-    for (i = 0; i < l->count; ++i)
+    for (int i = 0; i < l->count; ++i)
         if (are_equal(l->items[i], item, l->data_type))
             return 1;
     return 0;
@@ -73,8 +72,8 @@ int contains(void *self, union list_data item)
 int remove_item(void *self, union list_data item)
 {
     struct array_list *l = array_list_from(self);
-    int i, removed = 0;
-    for (i = 0; i < l->count; ++i)
+    int removed = 0;
+    for (int i = 0; i < l->count; ++i)
         if (removed)
             l->items[i-1] = l->items[i];
         else if (are_equal(l->items[i], item, l->data_type))
@@ -103,8 +102,7 @@ void set_element_at(void *self, int index, union list_data value)
 int index_of(void *self, union list_data item)
 {
     struct array_list *l = array_list_from(self);
-    int i;
-    for (i = 0; i < l->count; ++i)
+    for (int i = 0; i < l->count; ++i)
         if (are_equal(l->items[i], item, l->data_type))
             return i;
     return -1;
@@ -113,9 +111,8 @@ int index_of(void *self, union list_data item)
 void insert_at(void *self, int index, union list_data item)
 {
     struct array_list *l = array_list_from(self);
-    int i;
     l->add(l, empty_item());
-    for (i = l->count-1; i > index; --i)
+    for (int i = l->count-1; i > index; --i)
         l->items[i] = l->items[i-1];
     l->items[index].as_void_ptr = item.as_void_ptr;
 }
@@ -123,8 +120,7 @@ void insert_at(void *self, int index, union list_data item)
 void remove_at(void *self, int index)
 {
     struct array_list *l = array_list_from(self);
-    int i;
-    for (i = index; i < (l->count - 1); ++i)
+    for (int i = index; i < (l->count - 1); ++i)
         l->items[i] = l->items[i + 1];
     --(l->count);
 }
