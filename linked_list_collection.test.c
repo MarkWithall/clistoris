@@ -29,21 +29,19 @@ TEST(count_for_empty_list_is_zero)
 END_TEST
 
 TEST(adding_some_elements_increase_count)
-    int count;
     l->add(l, data_for(10));
     l->add(l, data_for(20));
     l->add(l, data_for(30));
-    count = l->get_count(l);
+    int count = l->get_count(l);
     ASSERT_EQUAL(count, 3, "%d", "");
 END_TEST
 
 TEST(clear_resets_count_to_zero)
-    int count;
     l->add(l, data_for(10));
     l->add(l, data_for(20));
     l->add(l, data_for(30));
     l->clear(l);
-    count = l->get_count(l);
+    int count = l->get_count(l);
     ASSERT_EQUAL(count, 0, "%d", "");
 END_TEST
 
@@ -53,17 +51,15 @@ TEST(contains_non_existant_element_returns_false)
 END_TEST
 
 TEST(contains_existing_element_returns_true)
-    int r;
     l->add(l, data_for(10));
-    r = l->contains(l, data_for(10));
+    int r = l->contains(l, data_for(10));
     ASSERT_TRUE(r, "Expected 1");
 END_TEST
 
 TEST(removing_element_removes_element)
-    int r;
     l->add(l, data_for(10));
     l->remove(l, data_for(10));
-    r = l->contains(l, data_for(10));
+    int r = l->contains(l, data_for(10));
     ASSERT_FALSE(r, "Expected 0");
 END_TEST
 
