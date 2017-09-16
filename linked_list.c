@@ -20,10 +20,10 @@ union list_data get_current(void *self)
 int move_next(void *self)
 {
     struct linked_list *l = linked_list_from(self);
-    if (l->current == NULL)
-        l->current = l->first;
-    else
+    if (l->current)
         l->current = l->current->next;
+    else
+        l->current = l->first;
     return l->current != NULL;
 }
 
@@ -48,14 +48,14 @@ void add(void *self, union list_data item)
     struct list_item *new = malloc(sizeof(struct list_item));
     new->data = item;
     new->next = NULL;
-    if (l->first == NULL)
+    if (l->first)
     {
-        l->first = new;
+        l->last->next = new;
         l->last = new;
     }
     else
     {
-        l->last->next = new;
+        l->first = new;
         l->last = new;
     }
     l->count++;
@@ -66,7 +66,7 @@ void clear(void *self)
     struct linked_list *l = linked_list_from(self);
     struct list_item *item = l->first;
     struct list_item *temp;
-    while (item != NULL)
+    while (item)
     {
         temp = item;
         item = item->next;
@@ -81,7 +81,7 @@ int contains(void *self, union list_data item)
 {
     struct linked_list *l = linked_list_from(self);
     struct list_item *node = l->first;
-    while (node != NULL)
+    while (node)
     {
         if (are_equal(node->data, item, l->data_type))
             return 1;
@@ -95,11 +95,11 @@ int remove_item(void *self, union list_data item)
     struct linked_list *l = linked_list_from(self);
     struct list_item *node = l->first;
     struct list_item *previous = NULL;
-    while (node != NULL)
+    while (node)
     {
         if (are_equal(node->data, item, l->data_type))
         {
-            if (previous != NULL)
+            if (previous)
                 previous->next = node->next;
             else
                 l->first = node->next;
@@ -122,7 +122,7 @@ union list_data get_element_at(void *self, int index)
     struct linked_list *l = linked_list_from(self);
     struct list_item *node = l->first;
     int i = 0;
-    while (node != NULL)
+    while (node)
     {
         if (i == index)
             return node->data;
@@ -137,7 +137,7 @@ void set_element_at(void *self, int index, union list_data value)
     struct linked_list *l = linked_list_from(self);
     struct list_item *node = l->first;
     int i = 0;
-    while (node != NULL)
+    while (node)
     {
         if (i == index)
         {
@@ -154,7 +154,7 @@ int index_of(void *self, union list_data item)
     struct linked_list *l = linked_list_from(self);
     struct list_item *node = l->first;
     int i = 0;
-    while (node != NULL)
+    while (node)
     {
         if (are_equal(node->data, item, l->data_type))
             return i;
@@ -173,11 +173,11 @@ void insert_at(void *self, int index, union list_data item)
     new->data = item;
     new->next = NULL;
     int i = 0;
-    while (node != NULL)
+    while (node)
     {
         if (i == index)
         {
-            if (previous != NULL)
+            if (previous)
             {
                 new->next = previous->next;
                 previous->next = new;
@@ -205,7 +205,7 @@ void remove_at(void *self, int index)
     struct list_item *node = l->first;
     struct list_item *previous = NULL;
     int i = 0;
-    while (node != NULL)
+    while (node)
     {
         if (i == index) {
             previous->next = node->next;
@@ -259,7 +259,7 @@ void destroy_linked_list(struct linked_list *l)
 {
     struct list_item *item = l->first;
     struct list_item *temp;
-    while (item != NULL)
+    while (item)
     {
         temp = item;
         item = item->next;
