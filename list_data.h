@@ -1,5 +1,4 @@
-#ifndef LIST_DATA_H
-#define LIST_DATA_H
+#pragma once
 
 /*
  * Official type list: http://en.wikipedia.org/wiki/C_data_types#Basic_types
@@ -46,6 +45,4 @@ union list_data
 
 union list_data empty_item();
 int are_equal(union list_data d1, union list_data d2, enum list_data_type data_type);
-
-#endif /* LIST_DATA_H */
 

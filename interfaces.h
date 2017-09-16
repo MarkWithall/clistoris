@@ -1,5 +1,4 @@
-#ifndef INTERFACES_H
-#define INTERFACES_H
+#pragma once
 
 #include "list_data.h"
 
@@ -29,6 +28,4 @@ struct list
     void (*insert_at)(void *self, int index, union list_data item);
     void (*remove_at)(void *self, int index);
 };
-
-#endif /* INTERFACES_H */
 
